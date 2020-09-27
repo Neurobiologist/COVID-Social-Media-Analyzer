@@ -30,3 +30,5 @@ To set up the Google Natural Language API, I relied primarily on the official Go
 <a id="6">[6]</a> http://docs.tweepy.org/en/latest/getting_started.html
 
 <a id="7">[7]</a> http://docs.tweepy.org/en/latest/extended_tweets.html
+
+<a id="8">[8]</a> http://docs.tweepy.org/en/v3.5.0/api.html
