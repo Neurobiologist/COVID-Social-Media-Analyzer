@@ -30,9 +30,9 @@ print('Followers Count: ', user.followers_count)
 #   print(friend.screen_name)
 
 # Pull home timeline associated with personal account @MeganMParsons
-public_tweets = api.home_timeline()
+public_tweets = api.home_timeline(tweet_mode='extended')
 for tweet in public_tweets:
-    print(tweet.text)     # Truncated text
+    print(tweet.full_text)     # UPDATE: Full text
     print('\n\n')
 
 # Use Cursor object to process first 5 statuses
