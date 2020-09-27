@@ -8,6 +8,7 @@ Tweepy Test
 import tweepy
 import os
 
+# Fetch Twitter API key and access token from environment variables
 api_key = os.environ.get("TWITTER_API_KEY")
 api_secret = os.environ.get("TWITTER_API_SECRET")
 access_token = os.environ.get("TWITTER_ACCESS_TOKEN")
