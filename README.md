@@ -11,10 +11,12 @@ To verify that I set up the Bash scripts and Tweepy API correctly, I ran a modif
 
 I noticed that all of my tweets were truncated when printed. As it turns out, there have been changes to the number of allowable characters in certain circumstances over time, and the standard Tweepy API methods allow for a 'compact' or 'extended' parameter, which contains either a truncated or untruncated version of the tweets, respectively [[7]](#7). If the aim is to use information on Twitter for sentiment analysis, we want to ensure that we have the full context of each tweet to be used. Even when applying this initial fix, I noticed that certain tweets were still truncated. As it turns out, retweets must be handled separately with a try/except block, and the code for the handling of this section has been adapted from the Tweepy documentation on Extended Tweets [[7]](#7).
 
-The most useful Tweepy method to gather tweets for sentiment analysis is likely API.search, which "returns a collection of relevant Tweets matching a specified query" [[8]](#8). This method takes a search query and returns search results, with additional parameters to restrict this search to different geographical regions, languages, and type of results (recent vs. popular). Tweepy requires several modifications to return the untruncated version of tweets, starting with the <code>extended_tweet</code> parameter. Then, to access the full tweets, I modified the aforementioned try/catch block for retweets to catch any _AttributeError_ and print the full teet with the <code>full_text</code> key. This took trial and error, but I validated the results on various search queries in various languages.
+The most useful Tweepy method to gather tweets for sentiment analysis is likely API.search, which "returns a collection of relevant Tweets matching a specified query" [[8]](#8). This method takes a search query and returns search results, with additional parameters to restrict this search to different geographical regions, languages, and type of results (recent vs. popular). Tweepy requires several modifications to return the untruncated version of tweets, starting with the <code>extended_tweet</code> parameter. Then, to access the full tweets, I modified the aforementioned try/catch block for retweets to catch any _AttributeError_ and print the full tweet with the <code>full_text</code> key. This took trial and error, but I validated the results on various search queries in various languages.
+
+Tweepy documentation mentions the <code>RateLimitError</code> exception, and I pre-emptively accounted for this potential issue by setting <code>wait_on_rate_limit</code> and <code>wait_on_rate_limit_notify</code> to True [[9]](#9).
 
 ## Google NLP API
-To set up the Google Natural Language API, I relied primarily on the official Google Cloud documentation [[9]](#9),[[10]](#10). To begin, I created a Cloud project and enabled the Google Cloud Language API. I activated the project environment, added credentials to the Bash script, and installed the Cloud Client Library Google Cloud Natural Language for Python. I ran a modified "Analyze some text" example from the NLP API Quickstart documentation and compared the result to the online NLP API demo tool [[11]](#11), [[12]](#12). The results indicated that my setup was working properly. One additional test of the API was performed using <code>analyze_entities</code> to see if entities (proper names and common nouns) were identified correctly throughout various text examples, and this test was also successful [[13]](#13).
+To set up the Google Natural Language API, I relied primarily on the official Google Cloud documentation [[10]](#10),[[11]](#11). To begin, I created a Cloud project and enabled the Google Cloud Language API. I activated the project environment, added credentials to the Bash script, and installed the Cloud Client Library Google Cloud Natural Language for Python. I ran a modified "Analyze some text" example from the NLP API Quickstart documentation and compared the result to the online NLP API demo tool [[12]](#12), [[13]](#13). The results indicated that my setup was working properly. One additional test of the API was performed using <code>analyze_entities</code> to see if entities (proper names and common nouns) were identified correctly throughout various text examples, and this test was also successful [[14]](#14).
 
 ## References
 <a id="1">[1]</a> https://developers.google.com/maps/api-key-best-practices
@@ -33,12 +35,14 @@ To set up the Google Natural Language API, I relied primarily on the official Go
 
 <a id="8">[8]</a> http://docs.tweepy.org/en/v3.5.0/api.html
 
-<a id="9">[9]</a> https://cloud.google.com/natural-language/docs/quickstart#quickstart-analyze-entities-gcloud
+<a id="9">[9]</a> http://docs.tweepy.org/en/v3.5.0/api.html#tweepy-error-exceptions
 
-<a id="10">[10]</a> https://cloud.google.com/python/setup
+<a id="10">[10]</a>https://cloud.google.com/natural-language/docs/quickstart#quickstart-analyze-entities-gcloud
 
-<a id="11">[11]</a> https://cloud.google.com/natural-language/docs/quickstart-client-libraries#client-libraries-usage-python
+<a id="11">[11]</a> https://cloud.google.com/python/setup
 
-<a id="12">[12]</a> https://cloud.google.com/natural-language
+<a id="12">[12]</a> https://cloud.google.com/natural-language/docs/quickstart-client-libraries#client-libraries-usage-python
 
-<a id="13">[13]</a> https://cloud.google.com/natural-language/docs/reference/rest
+<a id="13">[13]</a> https://cloud.google.com/natural-language
+
+<a id="14">[14]</a> https://cloud.google.com/natural-language/docs/reference/rest
