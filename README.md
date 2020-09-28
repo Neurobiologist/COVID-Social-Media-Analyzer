@@ -31,6 +31,12 @@ To summarize the test programs, I was able to:
 ## Google NLP API
 To set up the Google Natural Language API, I relied primarily on the official Google Cloud documentation [[10]](#10),[[11]](#11). To begin, I created a Cloud project and enabled the Google Cloud Language API. I activated the project environment, added credentials to the Bash script, and installed the Cloud Client Library Google Cloud Natural Language for Python. I ran a modified "Analyze some text" example from the NLP API Quickstart documentation and compared the result to the online NLP API demo tool [[12]](#12), [[13]](#13). The results indicated that my setup was working properly. One additional test of the API was performed using <code>analyze_entities</code> to see if entities (proper names and common nouns) were identified correctly throughout various text examples, and this test was also successful [[14]](#14).
 
+To summarize the test programs, I was able to:
+
+* Determine the sentiment score and magnitude of example sentences and verify the results using the online NLP API demo
+* Interpret the sentiment score and magnitude values as being "clearly positive", "clearly negative", "neutral", or "mixed", recognizing that some thresholds might have to be adjusted based on the specific details of the application
+* Perform entity analysis on a variety of example sentences and verify the results using the online NLP API demo
+* Recognize the limitations of sentiment analysis, especially when there is nuanced language used to describe tragic events (this will be important if I do a project related to COVID-19, for instance)
 
 ## References
 <a id="1">[1]</a> https://developers.google.com/maps/api-key-best-practices
