@@ -15,8 +15,22 @@ The most useful Tweepy method to gather tweets for sentiment analysis is likely 
 
 Tweepy documentation mentions the <code>RateLimitError</code> exception, and I pre-emptively accounted for this potential issue by setting <code>wait_on_rate_limit</code> and <code>wait_on_rate_limit_notify</code> to True [[9]](#9).
 
+To summarize the test programs, I was able to:
+
+* Get the User object and associated screen name, followers count, and friends list
+* Discover that the error message received when an incorrect Twitter handle is passed reads "tweepy.error.TweepError: [{'code': 50, 'message': 'User not found.'}]"
+* Write code that catches the incorrect Twitter handle error and displays the message 'User handle <handle> does not exist.' (Can also be modified to request a new handle.)
+* Retrieve tweets from my home timeline
+* Retrieve tweets from a given Twitter handle
+* Modify the number of tweets displayed, from how many pages, and whether the tweets should be truncated or not
+* Use the Cursor object to process statuses (and catch Attribute errors)
+* Search for specific query or hashtag, filter by language, timeframe, location, result type (recent or popular)
+* Most importantly, I was able to retrieve tweets _in full_ according to my specifications, which will be useful for doing sentiment analysis for part 2 of this project
+ 
+
 ## Google NLP API
 To set up the Google Natural Language API, I relied primarily on the official Google Cloud documentation [[10]](#10),[[11]](#11). To begin, I created a Cloud project and enabled the Google Cloud Language API. I activated the project environment, added credentials to the Bash script, and installed the Cloud Client Library Google Cloud Natural Language for Python. I ran a modified "Analyze some text" example from the NLP API Quickstart documentation and compared the result to the online NLP API demo tool [[12]](#12), [[13]](#13). The results indicated that my setup was working properly. One additional test of the API was performed using <code>analyze_entities</code> to see if entities (proper names and common nouns) were identified correctly throughout various text examples, and this test was also successful [[14]](#14).
+
 
 ## References
 <a id="1">[1]</a> https://developers.google.com/maps/api-key-best-practices
