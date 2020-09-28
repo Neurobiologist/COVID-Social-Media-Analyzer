@@ -5,14 +5,17 @@ NLP Test
 
 @author: MeganParsons
 """
-
+# Import Google Client Library and Instantiate a Client
 from google.cloud import language
-
+from google.cloud.language import enums
+from google.cloud.language import types
 client = language.LanguageServiceClient()
 
+# Analyze text
+tweet = "They were the most vulnerable to COVID — thousands of elders in nursing homes across the state. Yet for the Baker administration, praised for its overall pandemic response, they were for too long a secondary priority. The result was calamity: 1 in 7 dead."
 document = language.types.Document(
-  content="They were the most vulnerable to COVID — thousands of elders in nursing homes across the state. Yet for the Baker administration, praised for its overall pandemic response, they were for too long a secondary priority. The result was calamity: 1 in 7 dead.", 
-  type='PLAIN_TEXT')
+  content=tweet, 
+  type=enums.Document.Type.PLAIN_TEXT)
 
 response = client.analyze_sentiment(
   document=document,
