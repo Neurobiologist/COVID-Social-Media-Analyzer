@@ -38,6 +38,9 @@ To summarize the test programs, I was able to:
 * Perform entity analysis on a variety of example sentences and verify the results using the online NLP API demo
 * Recognize the limitations of sentiment analysis, especially when there is nuanced language used to describe tragic events (this will be important if I do a project related to COVID-19, for instance)
 
+## Future Direction
+Now that I understand what an API is and how it works, as well as how to secure information like the API key and other credentials, I think my next step is to organize what I've learned into Python functions that can be called as part of a larger program for part 2 of this project. I am now thinking about the ways in which these APIs can be integrated in useful ways and the user impact that these different types of applications may have.
+
 ## References
 <a id="1">[1]</a> https://developers.google.com/maps/api-key-best-practices
 
