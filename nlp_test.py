@@ -1,19 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-nlp_test
+NLP Test
 
 @author: MeganParsons
 """
 
-from google.cloud import language_v1 as language
+from google.cloud import language
 
 client = language.LanguageServiceClient()
 
 document = language.types.Document(
-  content="My brother Matt and I are happy",
-  type='PLAIN_TEXT'
-  )
+  content="They were the most vulnerable to COVID — thousands of elders in nursing homes across the state. Yet for the Baker administration, praised for its overall pandemic response, they were for too long a secondary priority. The result was calamity: 1 in 7 dead.", 
+  type='PLAIN_TEXT')
 
 response = client.analyze_sentiment(
   document=document,
