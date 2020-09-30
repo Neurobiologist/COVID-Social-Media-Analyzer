@@ -7,6 +7,9 @@ The purpose of this assignment is to explore the Twitter API and Google Cloud Na
 3. [Google NLP API](#Google-NLP-API)
 3. [Future Direction](#Future-Direction)
 4. [References](#References)
+5. [Product Mission](#Product-Mission)
+6. [User Story](#User-Story)
+7. [Software Implementation & Results](#Software-Implementation-Results)
 
 <a name="Securing-API-Keys"></a>
 ## Securing API Keys
@@ -52,6 +55,14 @@ To summarize the test programs, I was able to:
 ## Future Direction
 Now that I understand what an API is and how it works, as well as how to secure information like the API key and other credentials, I think my next step is to organize what I've learned into Python functions that can be called as part of a larger program for part 2 of this project. I am now thinking about the ways in which these APIs can be integrated in useful ways and the user impact that these different types of applications may have.
 
+<a name="Product-Mission"></a>
+## Product Mission
+
+<a name="User-Story"></a>
+## User Story
+
+<a name="Software-Implementation-Results"></a>
+## Software Implementation & Results
 
 <a name="References"></a>
 ## References
