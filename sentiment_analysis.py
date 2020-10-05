@@ -12,6 +12,8 @@ from google.cloud.language import enums
 from google.cloud.language import types
 # Import Tweepy
 import tweepy
+# Import COVID-19 Data API
+import COVID19Py
 # General Imports
 import os
 import pandas as pd
@@ -35,6 +37,8 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 # Access the Google NLP API
 client = language.LanguageServiceClient()
+# Access the COVID19Py API
+covid = COVID19Py.COVID19(data_source='jhu')
 
 def preprocess_tweet(status):
   # Return full text of tweet
@@ -66,6 +70,16 @@ def sentiment_analysis(tweet):
 
   return sentiment
 
+  def tweet_polarity(tweet_data):
+    h1 = plt.hist(tweet_data['Sentiment_Score'], bins='auto')
+    plt.title('COVID-19 Sentiment Distribution for {}'.format(tweet_data['ID']))
+    plt.xlabel('Sentiment Score')
+    
+
+  def visualize(tweet_data):
+      tweet_polarity(tweet_data)    # Overview of Tweet Data
+
+
 
 
 def main():
@@ -90,6 +104,10 @@ def main():
   tweet_mode = 'extended'
   since_id = '2020-02-01'
   counter = 0
+  
+  # ID from query search
+  sep = ':'
+  handle = query.split(sep, 1)[-1]
 
 
   # for status in tweepy.Cursor(api.user_timeline, id=realDonaldTrump, since_id=since_id, tweet_mode='extended').items():
@@ -113,6 +131,7 @@ def main():
       print(tweet, sentiment.score)
       #Store values
       df = pd.DataFrame({'Date':[status.created_at],
+        'ID':handle,
         'Tweet':tweet,
         'Sentiment_Score':[sentiment.score],
         'Sentiment_Magnitude':[sentiment.magnitude]})
@@ -124,6 +143,8 @@ def main():
      break
 
   print(tweet_data)
+
+  visualize(tweet_data)
 
 
 if __name__ == "__main__":
