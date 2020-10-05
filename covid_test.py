@@ -27,4 +27,7 @@ print(covid_data)
 # Plot Data
 fig = plt.plot(covid_data['Date'], covid_data['Confirmed Cases'])
 plt.xticks(rotation=45)
+plt.xlabel('Date')
+plt.ylabel('Confimed Cases of COVID-19')
+plt.title('Cases of COVID-19 in the United States')
 plt.show()
