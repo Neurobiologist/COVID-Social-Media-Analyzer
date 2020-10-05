@@ -24,6 +24,7 @@ covid_data.columns = ['Date','Confirmed Cases']
 covid_data['Date'] = pd.to_datetime(covid_data.Date, format='%Y-%m-%dT%H:%M:%SZ')
 print(covid_data)
 
+# Plot Data
 fig = plt.plot(covid_data['Date'], covid_data['Confirmed Cases'])
 plt.xticks(rotation=45)
 plt.show()
