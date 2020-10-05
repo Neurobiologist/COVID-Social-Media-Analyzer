@@ -8,7 +8,7 @@ The purpose of this assignment is to explore the Twitter API and Google Cloud Na
 3. [Future Direction](#Future-Direction)
 4. [References](#References)
 5. [Product Mission](#Product-Mission)
-6. [User Story](#User-Story)
+6. [User Stories](#User-Stories)
 7. [Software Implementation & Results](#Software-Implementation-Results)
 
 <a name="Securing-API-Keys"></a>
@@ -57,9 +57,17 @@ Now that I understand what an API is and how it works, as well as how to secure 
 
 <a name="Product-Mission"></a>
 ## Product Mission
+For public affairs professionals, public health officials, and lobbyists who require quantitative data visualizations to understand how well official statements from elected officials reflect the underlying data, the _Covid Correlator_ is an innovative software that provides data visualizations and metrics of how well the Twitter activity of public officials and federal agencies correlates with COVID-19 infection rates across the United States. Unlike available academic solutions, our product is easy to use and publicly available to promote the free exchange of vital information in the midst of a global pandemic.
 
-<a name="User-Story"></a>
-## User Story
+<a name="User-Stories"></a>
+## User Stories
+As an epidemiologist, I aim to understand the relationship between COVID-19 infection rates and the perception of official communications issued from the White House for my academic publications.
+
+As a public health official, I need objective data at my disposal to provide testimony at legislative hearings to advocate for increased funding and resources to public health groups; this is especially vital to confront the challenges associated with the COVID-19 pandemic.
+
+As the Director of the Division of Public Affairs at the U.S. Center for Disease Control and Prevention, my goal is to ensure that public CDC messaging remains strictly informative and neutral in tone to reach the widest possible audience and influence the public health of the nation.
+
+As a public affairs professional, I aim to organize a grassroots lobbying campaign motivated in part by the impact of the communications of elected officials on the dialogue surrounding COVID-19. 
 
 <a name="Software-Implementation-Results"></a>
 ## Software Implementation & Results
