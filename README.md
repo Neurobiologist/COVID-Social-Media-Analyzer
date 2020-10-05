@@ -10,6 +10,7 @@ The purpose of this assignment is to explore the Twitter API and Google Cloud Na
 5. [Product Mission](#Product-Mission)
 6. [User Stories](#User-Stories)
 7. [Software Implementation & Results](#Software-Implementation-Results)
+8. [Next Steps](#Next-Steps)
 
 <a name="Securing-API-Keys"></a>
 ## Securing API Keys
@@ -71,6 +72,17 @@ As a public affairs professional, I aim to organize a grassroots lobbying campai
 
 <a name="Software-Implementation-Results"></a>
 ## Software Implementation & Results
+
+<a name="Next-Steps"></a>
+## Next Steps
+Now that I have a functioning proof-of-concept for this idea, I'd like to make a few modifications and implement several new features going forward:
+
+* I'd like to add a filter to the tweet preprocessing step to eliminate hyperlinks and maximize the amount of useful data being fed to the <code>sentiment_analysis</code> function.
+* I plan to explore the use of more dynamic visualizations and more useful ways of displaying the data. Now that many of the challenges associated with cleaning, parsing, and processing are complete, this is the exciting next step.
+* There are options to make this a real-time analysis app, which might provide additional insights into the data as well as added functionality.
+* Perhaps I would consider using a COVID-19 data API with more nuanced datasets; more information would allow the app to provide a more in-depth analysis.
+* Finally, this app would benefit from a beautiful and functional UI.
+
 
 <a name="References"></a>
 ## References
