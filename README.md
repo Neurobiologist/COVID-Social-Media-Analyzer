@@ -79,6 +79,7 @@ As a public affairs professional, I aim to organize a grassroots lobbying campai
 
 <a name="Software-Implementation-Results"></a>
 ## Software Implementation & Results
+This software uses the Tweepy API, Google NLP API, and COVID19Py API to perform sentiment analysis on official tweets from elected officials and federal agencies and provides basic analysis and visualizations correlating sentiment data from COVID-related tweets with confirmed cases of COVID-19 in the United States. This gives us insight into political messaging and public affairs in light of objective data from the pandemic.
 
 <a name="Next-Steps"></a>
 ## Next Steps
@@ -87,6 +88,8 @@ Now that I have a functioning proof-of-concept for this idea, I'd like to make a
 * I'd like to add a filter to the tweet preprocessing step to eliminate hyperlinks and maximize the amount of useful data being fed to the <code>sentiment_analysis</code> function.
 * I plan to explore the use of more dynamic visualizations and more useful ways of displaying the data. Now that many of the challenges associated with cleaning, parsing, and processing are complete, this is the exciting next step.
 * There are options to make this a real-time analysis app, which might provide additional insights into the data as well as added functionality.
+* This analyzer would benefit from more sophisticated statistical analysis and a more robust COVID-19 data API.
+* Further stratification of the data into region and analyzing Twitter data from local elected officials would be an ambitious goal in the future.
 * Perhaps I would consider using a COVID-19 data API with more nuanced datasets; more information would allow the app to provide a more in-depth analysis.
 * Finally, this app would benefit from a beautiful and functional UI.
 
