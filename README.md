@@ -6,11 +6,12 @@ The purpose of this assignment is to explore the Twitter API and Google Cloud Na
 2. [Twitter API: Tweepy](#Twitter-API-Tweepy)
 3. [Google NLP API](#Google-NLP-API)
 3. [Future Direction](#Future-Direction)
-4. [References](#References)
-5. [Product Mission](#Product-Mission)
-6. [User Stories](#User-Stories)
-7. [Software Implementation & Results](#Software-Implementation-Results)
-8. [Next Steps](#Next-Steps)
+4. [Product Mission](#Product-Mission)
+5. [User Stories](#User-Stories)
+6. [Software Implementation & Results](#Software-Implementation-Results)
+7. [Next Steps](#Next-Steps)
+8. [References](#References)
+
 
 <a name="Securing-API-Keys"></a>
 ## Securing API Keys
