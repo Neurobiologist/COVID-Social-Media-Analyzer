@@ -38,7 +38,7 @@ api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 # Access the Google NLP API
 client = language.LanguageServiceClient()
 # Access the COVID19Py API
-covid = COVID19Py.COVID19(data_source='jhu')
+covid = COVID19Py.COVID19(url="https://cvtapi.nl")
 
 def preprocess_tweet(status):
   # Return full text of tweet
@@ -83,7 +83,16 @@ def sentiment_analysis(tweet):
 
 
 def main():
+    
+  # Process COVID-19 Data
+  location = covid.getLocationByCountryCode("US", timelines=True)
+  raw_data = location[0]['timelines']['confirmed']['timeline']
+  covid_data = pd.DataFrame.from_dict(raw_data, orient = 'index')
+  covid_data = covid_data.reset_index()
+  covid_data.columns = ['Date','Confirmed Cases']
+  covid_data['Date'] = pd.to_datetime(covid_data.Date, format='%Y-%m-%dT%H:%M:%SZ')
 
+ 
   # Create dataframe
   tweet_data = pd.DataFrame()
   date = []

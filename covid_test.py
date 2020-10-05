@@ -14,9 +14,8 @@ import pandas as pd
 # Access the COVID19Py API
 covid = COVID19Py.COVID19(url="https://cvtapi.nl")
 
-location = covid.getLocationByCountryCode("US", timelines=True)
-
 # Process Data
+location = covid.getLocationByCountryCode("US", timelines=True)
 raw_data = location[0]['timelines']['confirmed']['timeline']
 covid_data = pd.DataFrame.from_dict(raw_data, orient = 'index')
 covid_data = covid_data.reset_index()
