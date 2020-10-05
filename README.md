@@ -1,16 +1,22 @@
 # EC601-Project02
-The purpose of this assignment is to explore the Twitter API and Google Cloud Natural Language ("NLP") API.
+The purpose of this assignment is to explore the Twitter API and Google Cloud Natural Language ("NLP") API. I have applied what I've learned to create a _COVID Correlator_ Social Media Analyzer.
 
 # Table of Contents
+
+Part I
+
 1. [Securing API Keys](#Securing-API-Keys)
 2. [Twitter API: Tweepy](#Twitter-API-Tweepy)
 3. [Google NLP API](#Google-NLP-API)
-3. [Future Direction](#Future-Direction)
-4. [Product Mission](#Product-Mission)
-5. [User Stories](#User-Stories)
-6. [Software Implementation & Results](#Software-Implementation-Results)
-7. [Next Steps](#Next-Steps)
-8. [References](#References)
+4. [Future Direction](#Future-Direction)
+
+Part II
+
+5. [Product Mission](#Product-Mission)
+6. [User Stories](#User-Stories)
+7. [Software Implementation & Results](#Software-Implementation-Results)
+8. [Next Steps](#Next-Steps)
+9. [References](#References)
 
 
 <a name="Securing-API-Keys"></a>
