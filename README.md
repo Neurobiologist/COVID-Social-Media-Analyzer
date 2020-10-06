@@ -81,6 +81,10 @@ As a public affairs professional, I aim to organize a grassroots lobbying campai
 ## Software Implementation & Results
 This software uses the Tweepy API, Google NLP API, and COVID19Py API to perform sentiment analysis on official tweets from elected officials and federal agencies and provides basic analysis and visualizations correlating sentiment data from COVID-related tweets with confirmed cases of COVID-19 in the United States. This gives us insight into political messaging and public affairs in light of objective data from the pandemic.
 
+Thoughts:
+* Unique considerations when troubleshooting: Wasn't retrieving many results when I tried to curate a collection of tweets from President Trump regarding COVID-19. I later realized that this was because I failed to include the term 'China virus' in my search query.
+* Python datetime format convlicts with matplotlib's handling of plot axes (See https://www.earthdatascience.org/courses/use-data-open-source-python/use-time-series-data-in-python/date-time-types-in-pandas-python/)
+
 <a name="Next-Steps"></a>
 ## Next Steps
 Now that I have a functioning proof-of-concept for this idea, I'd like to make a few modifications and implement several new features going forward:
