@@ -82,7 +82,7 @@ def eval(score, mag):
     elif score < 0.2 and score > -0.2:
         return 'o'
     else:
-        return '-'
+        return 'v'
 
 def tweet_polarity(tweet_data):
     h1 = plt.hist(tweet_data['Sentiment_Score'], bins='auto')
@@ -93,18 +93,36 @@ def tweet_polarity(tweet_data):
     
 def covid_plot(tweet_data, covid_data):
     # Create plot of COVID-19 data
-    fig = plt.plot(covid_data['Date'], covid_data['Confirmed Cases'])
-    plt.xticks(rotation=45)
+#    fig = plt.plot(covid_data['Date'], covid_data['Confirmed Cases'])
+#    plt.xticks(rotation=45)
+#    plt.xlabel('Date')
+#    plt.ylabel('Confimed Cases of COVID-19')
+#    plt.title('Cases of COVID-19 in the United States')
+    
+    fig, ax = plt.subplots(2, 1, sharex=True)
+    ax[0].plot(covid_data['Date'], covid_data['Confirmed Cases'])
+    ax[0].set_title('Cases of COVID-19 in the United States')
+    ax[0].set_ylabel('Confirmed Cases of COVID-19')
+    
+    for x, y, m in zip(tweet_data['Date'].to_list(), tweet_data['Sentiment_Magnitude'].to_list(), tweet_data['Interpretation'].to_list()):
+        ax[1].scatter(x, y, marker=m) 
+    
+   # ax[1].scatter(tweet_data['Date'].to_list(), tweet_data['Sentiment_Magnitude'].to_list(), marker=tweet_data['Interpretation'].to_list())
+    ax[1].set_title('COVID-19 Tweet Sentiment')
+    ax[1].set_ylabel('Sentiment Magnitude')
+    ax[1].tick_params(axis='x', rotation=45)
+    
+    plt.tight_layout() 
     plt.xlabel('Date')
-    plt.ylabel('Confimed Cases of COVID-19')
-    plt.title('Cases of COVID-19 in the United States')
+    
+   # plt.scatter(tweet_data['Date'], tweet_data['Sentiment_Score'], marker=tweet_data['Interpretation'])
+
     plt.show()
+    
     
 def visualize(tweet_data, covid_data):
     tweet_polarity(tweet_data)    # Overview of Tweet Data
     covid_plot(tweet_data, covid_data)
-
-
 
 
 def main():
@@ -162,14 +180,8 @@ def main():
     tweet_data['Date'] = pd.to_datetime(tweet_data['Date'], format='%Y-%m-%d %H:%M:%S')
     tweet_data['Interpretation'] = tweet_data.apply(lambda row : eval(row['Sentiment_Score'], row['Sentiment_Magnitude']), axis=1)
    
-    
-    #tweet_data['Date'] = [d.date() for d in tweet_data['Date']]
-  #  covid_data['Date'] = [d.date() for d in covid_data['Date']]
-    #covid_data['Date'] = pd.to_datetime(covid_data.Date, format='%Y-%m-%d')
   
     visualize(tweet_data, covid_data)
-    
-    print(tweet_data)
 
 
 if __name__ == "__main__":
