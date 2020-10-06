@@ -158,7 +158,8 @@ def main():
           tweet_data = tweet_data.append(df, ignore_index=True)
         if counter == max_tweets:
          break
-
+     
+    tweet_data['Date'] = pd.to_datetime(tweet_data['Date'], format='%Y-%m-%d %H:%M:%S')
     tweet_data['Interpretation'] = tweet_data.apply(lambda row : eval(row['Sentiment_Score'], row['Sentiment_Magnitude']), axis=1)
    
     
