@@ -18,10 +18,15 @@ import COVID19Py
 import os
 import pandas as pd
 import matplotlib.pyplot as plt 
+import numpy as np
+import datetime
 
 # Pandas Settings
 pd.set_option('max_colwidth', 280)  # Capture full tweet
 pd.set_option("display.max_rows", None, "display.max_columns", None)
+# Handle date time conversions between pandas and matplotlib
+from pandas.plotting import register_matplotlib_converters
+register_matplotlib_converters()
 
 # Fetch Twitter API key and access token from environment variables
 api_key = os.environ.get("TWITTER_API_KEY")
@@ -70,90 +75,100 @@ def sentiment_analysis(tweet):
 
   return sentiment
 
-  def tweet_polarity(tweet_data):
-    h1 = plt.hist(tweet_data['Sentiment_Score'], bins='auto')
-    plt.title('COVID-19 Sentiment Distribution for {}'.format(tweet_data['ID']))
-    plt.xlabel('Sentiment Score')
-    
+def eval(score, mag):
+    # Sentiment analysis interpretation
+    if score > 0.2:
+        return '+'
+    elif score < 0.2 and score > -0.2:
+        return 'o'
+    else:
+        return '-'
 
-  def visualize(tweet_data):
-      tweet_polarity(tweet_data)    # Overview of Tweet Data
+def tweet_polarity(tweet_data):
+    h1 = plt.hist(tweet_data['Sentiment_Score'], bins='auto')
+    plt.title('COVID-19 Sentiment Distribution for @{}'.format(tweet_data['ID'][0]))
+    plt.xlabel('Sentiment Score')
+    plt.xlim(-1,1)
+    plt.show()
+    
+def covid_plot(tweet_data, covid_data):
+    # Create plot of COVID-19 data
+    fig = plt.plot(covid_data['Date'], covid_data['Confirmed Cases'])
+    plt.xticks(rotation=45)
+    plt.xlabel('Date')
+    plt.ylabel('Confimed Cases of COVID-19')
+    plt.title('Cases of COVID-19 in the United States')
+    plt.show()
+    
+def visualize(tweet_data, covid_data):
+    tweet_polarity(tweet_data)    # Overview of Tweet Data
+    covid_plot(tweet_data, covid_data)
 
 
 
 
 def main():
+    # Process COVID-19 Data
+    location = covid.getLocationByCountryCode("US", timelines=True)
+    raw_data = location[0]['timelines']['confirmed']['timeline']
+    covid_data = pd.DataFrame.from_dict(raw_data, orient = 'index')
+    covid_data = covid_data.reset_index()
+    covid_data.columns = ['Date','Confirmed Cases']
+    covid_data['Date'] = pd.to_datetime(covid_data.Date, format='%Y-%m-%dT%H:%M:%SZ')
+
+    # Create dataframe
+    tweet_data = pd.DataFrame()
     
-  # Process COVID-19 Data
-  location = covid.getLocationByCountryCode("US", timelines=True)
-  raw_data = location[0]['timelines']['confirmed']['timeline']
-  covid_data = pd.DataFrame.from_dict(raw_data, orient = 'index')
-  covid_data = covid_data.reset_index()
-  covid_data.columns = ['Date','Confirmed Cases']
-  covid_data['Date'] = pd.to_datetime(covid_data.Date, format='%Y-%m-%dT%H:%M:%SZ')
+    # Twitter Handles of Interest
+    realDonaldTrump = '25073877'
+    CDCgov = '146569971'
+      
+    # Search Parameters
+    query = 'from:realDonaldTrump'
+    max_tweets = 150
+    result_type = 'recent'
+    lang = 'en'
+    tweet_mode = 'extended'
+    since_id = '2020-01-22'     # Earliest confirmed COVID-19 case in US
+    counter = 0
+      
+    # ID from query search
+    sep = ':'
+    handle = query.split(sep, 1)[-1]
 
- 
-  # Create dataframe
-  tweet_data = pd.DataFrame()
-  date = []
-  content = []
-  sentiment_score = []
-  sentiment_mag = []
-  i=0
+    for status in tweepy.Cursor(api.search, q=query, count=max_tweets, lang=lang, result_type=result_type, tweet_mode=tweet_mode).items():
+        tweet = preprocess_tweet(status)
+        counter += 1
+        if any(keyword in tweet for keyword in ('COVID', 'covid', 'China virus')):
+          # Sentiment analysis
+          sentiment = sentiment_analysis(tweet)
+          
+          # Date Time format
+          date_time_str = str(status.created_at)
+          date_time = datetime.datetime.strptime(date_time_str, '%Y-%m-%d %H:%M:%S')
+          print(date_time)
 
-  # Twitter Handles of Interest
-  realDonaldTrump = '25073877'
-  CDCgov = '146569971'
+          #Store values
+          df = pd.DataFrame({'Date':[date_time],
+            'ID':handle,
+            'Tweet':tweet,
+            'Sentiment_Score':[sentiment.score],
+            'Sentiment_Magnitude':[sentiment.magnitude]})
+          print(df)
+          tweet_data = tweet_data.append(df, ignore_index=True)
+        if counter == max_tweets:
+         break
+
+    tweet_data['Interpretation'] = tweet_data.apply(lambda row : eval(row['Sentiment_Score'], row['Sentiment_Magnitude']), axis=1)
+   
+    
+    #tweet_data['Date'] = [d.date() for d in tweet_data['Date']]
+  #  covid_data['Date'] = [d.date() for d in covid_data['Date']]
+    #covid_data['Date'] = pd.to_datetime(covid_data.Date, format='%Y-%m-%d')
   
-  # Search Parameters
-  query = 'from:CDCgov'
-  max_tweets = 10
-  result_type = 'recent'
-  lang = 'en'
-  tweet_mode = 'extended'
-  since_id = '2020-02-01'
-  counter = 0
-  
-  # ID from query search
-  sep = ':'
-  handle = query.split(sep, 1)[-1]
-
-
-  # for status in tweepy.Cursor(api.user_timeline, id=realDonaldTrump, since_id=since_id, tweet_mode='extended').items():
-  #   tweet = preprocess_tweet(status)
-  #   counter += 1
-  #   print(counter)
-  #   if any(keyword in tweet for keyword in ('COVID', 'covid', 'China virus')):
-  #     sentiment = sentiment_analysis(tweet)
-  #     print(status.created_at, '\t', tweet, '\nSentiment:', sentiment.score, sentiment.magnitude, '\n\n')
-
-
-  #   if counter == max_tweets:
-  #     break
-
-  for status in tweepy.Cursor(api.search, q=query, count=max_tweets, lang=lang, result_type=result_type, tweet_mode=tweet_mode).items():
-    tweet = preprocess_tweet(status)
-    counter += 1
-    print(counter)
-    if any(keyword in tweet for keyword in ('COVID', 'covid', 'China virus')):
-      sentiment = sentiment_analysis(tweet)
-      print(tweet, sentiment.score)
-      #Store values
-      df = pd.DataFrame({'Date':[status.created_at],
-        'ID':handle,
-        'Tweet':tweet,
-        'Sentiment_Score':[sentiment.score],
-        'Sentiment_Magnitude':[sentiment.magnitude]})
-      print(df)
-      tweet_data = tweet_data.append(df, ignore_index=True)
-      print(tweet_data)
-
-    if counter == max_tweets:
-     break
-
-  print(tweet_data)
-
-  visualize(tweet_data)
+    visualize(tweet_data, covid_data)
+    
+    print(tweet_data)
 
 
 if __name__ == "__main__":
