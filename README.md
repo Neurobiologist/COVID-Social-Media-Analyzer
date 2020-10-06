@@ -1,15 +1,23 @@
 # EC601-Project02
-The purpose of this assignment is to explore the Twitter API and Google Cloud Natural Language ("NLP") API.
+The purpose of this assignment is to explore the Twitter API and Google Cloud Natural Language ("NLP") API. I have applied what I've learned to create a _COVID Correlator_ Social Media Analyzer.
 
 # Table of Contents
+
+Part I
+
 1. [Securing API Keys](#Securing-API-Keys)
 2. [Twitter API: Tweepy](#Twitter-API-Tweepy)
 3. [Google NLP API](#Google-NLP-API)
-3. [Future Direction](#Future-Direction)
-4. [References](#References)
+4. [Future Direction](#Future-Direction)
+
+Part II
+
 5. [Product Mission](#Product-Mission)
 6. [User Stories](#User-Stories)
 7. [Software Implementation & Results](#Software-Implementation-Results)
+8. [Next Steps](#Next-Steps)
+9. [References](#References)
+
 
 <a name="Securing-API-Keys"></a>
 ## Securing API Keys
@@ -71,6 +79,20 @@ As a public affairs professional, I aim to organize a grassroots lobbying campai
 
 <a name="Software-Implementation-Results"></a>
 ## Software Implementation & Results
+This software uses the Tweepy API, Google NLP API, and COVID19Py API to perform sentiment analysis on official tweets from elected officials and federal agencies and provides basic analysis and visualizations correlating sentiment data from COVID-related tweets with confirmed cases of COVID-19 in the United States. This gives us insight into political messaging and public affairs in light of objective data from the pandemic.
+
+<a name="Next-Steps"></a>
+## Next Steps
+Now that I have a functioning proof-of-concept for this idea, I'd like to make a few modifications and implement several new features going forward:
+
+* I'd like to add a filter to the tweet preprocessing step to eliminate hyperlinks and maximize the amount of useful data being fed to the <code>sentiment_analysis</code> function.
+* I plan to explore the use of more dynamic visualizations and more useful ways of displaying the data. Now that many of the challenges associated with cleaning, parsing, and processing are complete, this is the exciting next step.
+* There are options to make this a real-time analysis app, which might provide additional insights into the data as well as added functionality.
+* This analyzer would benefit from more sophisticated statistical analysis and a more robust COVID-19 data API.
+* Further stratification of the data into region and analyzing Twitter data from local elected officials would be an ambitious goal in the future.
+* Perhaps I would consider using a COVID-19 data API with more nuanced datasets; more information would allow the app to provide a more in-depth analysis.
+* Finally, this app would benefit from a beautiful and functional UI.
+
 
 <a name="References"></a>
 ## References
