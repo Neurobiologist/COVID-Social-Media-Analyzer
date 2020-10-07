@@ -121,7 +121,6 @@ def covid_plot(tweet_data, covid_data):
     plt.xlabel('Date')
     plt.show()
     
-    
 def visualize(tweet_data, covid_data):
     tweet_polarity(tweet_data)    # Overview of Tweet Data
     covid_plot(tweet_data, covid_data)
@@ -170,7 +169,7 @@ def main():
       
     # Search Parameters
     query = 'from:{}'.format(acct.get())
-    max_tweets = 500
+    max_tweets = 3000
     result_type = 'recent'
     lang = 'en'
     tweet_mode = 'extended'
@@ -182,7 +181,7 @@ def main():
     handle = query.split(sep, 1)[-1]
 
     # Process Twitter Data
-    for status in tweepy.Cursor(api.search, q=query, count=max_tweets, lang=lang, since_id=since_id, result_type=result_type, tweet_mode=tweet_mode).items():
+    for status in tweepy.Cursor(api.search, q=query, count=max_tweets, lang=lang, since_id=since_id, result_type=result_type, tweet_mode=tweet_mode).items(max_tweets):
         tweet = preprocess_tweet(status)
         counter += 1
         if any(keyword in tweet for keyword in ('COVID', 'covid', 'China virus', 'coronavirus')):
