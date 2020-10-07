@@ -14,6 +14,9 @@ from google.cloud.language import types
 import tweepy
 # Import COVID-19 Data API
 import COVID19Py
+# Import GUI package
+import tkinter as tk 
+from tkinter import ttk
 # General Imports
 import os
 import pandas as pd
@@ -134,6 +137,34 @@ def visualize(tweet_data, covid_data):
 
 
 def main():
+    # Dropdown menu
+    # Create window 
+    window = tk.Tk() 
+    window.title('Select Twitter Account to Analyze') 
+    window.geometry('250x200') 
+        
+    # label 
+    ttk.Label(window, text = "Select Twitter Account to Analyze:", 
+              font = ("Times New Roman", 10)).grid(column = 0, 
+              row = 5, padx = 10, pady = 25) 
+      
+    # Combobox creation 
+    n = tk.StringVar() 
+    n.set('CDCgov')
+    selection = ttk.Combobox(window, width = 27, textvariable = n) 
+    
+    # Dropdown list
+    selection['values'] = ('realDonaldTrump','CDCgov','JoeBiden','CDCDirector')
+    
+    selection.grid(column=0, row=6)
+    selection.current()
+    selection = selection.get()
+    
+    button = tk.Button(window, text = "Analyze", command = window.destroy)
+    button.grid(column=0,row=8)
+
+    window.mainloop()
+       
     # Process COVID-19 Data
     location = covid.getLocationByCountryCode("US", timelines=True)
     raw_data = location[0]['timelines']['confirmed']['timeline']
@@ -150,7 +181,7 @@ def main():
     CDCgov = '146569971'
       
     # Search Parameters
-    query = 'from:CDCgov'
+    query = 'from:{}'.format(selection)
     max_tweets = 50
     result_type = 'recent'
     lang = 'en'
