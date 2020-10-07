@@ -121,7 +121,6 @@ def covid_plot(tweet_data, covid_data):
     plt.xlabel('Date')
     plt.show()
     
-    
 def visualize(tweet_data, covid_data):
     tweet_polarity(tweet_data)    # Overview of Tweet Data
     covid_plot(tweet_data, covid_data)
@@ -174,6 +173,10 @@ def main():
     result_type = 'recent'
     lang = 'en'
     tweet_mode = 'extended'
+<<<<<<< HEAD
+=======
+    counter = 0
+>>>>>>> d3dfbdfaeef0fbb7a172677292686c35e6a27732
       
     # ID from query search
     sep = ':'

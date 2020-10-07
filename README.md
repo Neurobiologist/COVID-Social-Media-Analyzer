@@ -96,6 +96,8 @@ The (very basic) GUI is generated using the Tkinter GUI Toolkit [[15]](#15) and 
 
 When performing the sentiment analysis, I had some very unique considerations while troubleshooting. Namely, I wasn't receiving many results when I tried to curate a collection of tweets from President Trump regarding COVID-19. I later realized that this was because I failed to include the term 'China virus' in my search query.
 
+One limitation of this proof-of-concept is that I can only retrieve the past week's worth of Twitter data without the Premium API. See [Next Steps](#Next-Steps) for more details!
+
 <a name="Next-Steps"></a>
 ## Next Steps
 Now that I have a functioning proof-of-concept for this idea, I'd like to make a few modifications and implement several new features going forward:
@@ -107,8 +109,8 @@ Now that I have a functioning proof-of-concept for this idea, I'd like to make a
 * Further stratification of the data into region and analyzing Twitter data from local elected officials would be an ambitious goal in the future.
 * I am interested in adding the option to limit analysis to a specified date range, or even to expand the application to include topics of wider political interest.
 * Perhaps I would consider using a COVID-19 data API with more nuanced datasets; more information would allow the app to provide a more in-depth analysis.
+* To take this project from proof of concept to fully-functional application, I would need access to the **Premium Twitter API** and **Full-Archive Search** to gain access to the full set of data (rather than just the past week's worth of tweets) [[19]](#19).
 * Finally, this app would benefit from a beautiful and functional UI.
-
 
 <a name="References"></a>
 ## References
@@ -147,3 +149,5 @@ Now that I have a functioning proof-of-concept for this idea, I'd like to make a
 <a id="17">[17]</a> https://www.geeksforgeeks.org/combobox-widget-in-tkinter-python/#:~:text=Combobox%20is%20a%20combination%20of,the%20list%20of%20options%20displayed.
 
 <a id="18">[18]</a> https://pythonprogramming.net/how-to-embed-matplotlib-graph-tkinter-gui/
+
+<a id="19">[19]</a> https://techcrunch.com/2018/02/01/twitter-is-opening-up-its-full-archive-to-the-broader-developer-community/
