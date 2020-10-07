@@ -80,9 +80,17 @@ def eval(score, mag):
     if score > 0.2:
         return '+'
     elif score < 0.2 and score > -0.2:
-        return 'o'
+        return ' '
     else:
         return 'v'
+    
+def mkr(interp):
+    if interp == '+':
+        return 'b'
+    elif interp == 'o':
+        return 'k'
+    else:
+        return 'r'
 
 def tweet_polarity(tweet_data):
     h1 = plt.hist(tweet_data['Sentiment_Score'], bins='auto')
@@ -99,13 +107,13 @@ def covid_plot(tweet_data, covid_data):
 #    plt.ylabel('Confimed Cases of COVID-19')
 #    plt.title('Cases of COVID-19 in the United States')
     
-    fig, ax = plt.subplots(2, 1, sharex=True)
+    fig, ax = plt.subplots(2, 1, sharex=True, figsize=(20, 10))
     ax[0].plot(covid_data['Date'], covid_data['Confirmed Cases'])
     ax[0].set_title('Cases of COVID-19 in the United States')
     ax[0].set_ylabel('Confirmed Cases of COVID-19')
     
-    for x, y, m in zip(tweet_data['Date'].to_list(), tweet_data['Sentiment_Magnitude'].to_list(), tweet_data['Interpretation'].to_list()):
-        ax[1].scatter(x, y, marker=m) 
+    for x, y, s, c, m in zip(tweet_data['Date'].to_list(), tweet_data['Sentiment_Magnitude'].to_list(), 100*np.ones(len(tweet_data['Marker Color'].to_list())), tweet_data['Marker Color'].to_list(), tweet_data['Interpretation'].to_list()):
+        ax[1].scatter(x, y, s=s, c=c, marker=m) 
     
    # ax[1].scatter(tweet_data['Date'].to_list(), tweet_data['Sentiment_Magnitude'].to_list(), marker=tweet_data['Interpretation'].to_list())
     ax[1].set_title('COVID-19 Tweet Sentiment')
@@ -142,8 +150,8 @@ def main():
     CDCgov = '146569971'
       
     # Search Parameters
-    query = 'from:realDonaldTrump'
-    max_tweets = 150
+    query = 'from:CDCgov'
+    max_tweets = 50
     result_type = 'recent'
     lang = 'en'
     tweet_mode = 'extended'
@@ -164,7 +172,6 @@ def main():
           # Date Time format
           date_time_str = str(status.created_at)
           date_time = datetime.datetime.strptime(date_time_str, '%Y-%m-%d %H:%M:%S')
-          print(date_time)
 
           #Store values
           df = pd.DataFrame({'Date':[date_time],
@@ -172,14 +179,13 @@ def main():
             'Tweet':tweet,
             'Sentiment_Score':[sentiment.score],
             'Sentiment_Magnitude':[sentiment.magnitude]})
-          print(df)
           tweet_data = tweet_data.append(df, ignore_index=True)
         if counter == max_tweets:
          break
      
     tweet_data['Date'] = pd.to_datetime(tweet_data['Date'], format='%Y-%m-%d %H:%M:%S')
     tweet_data['Interpretation'] = tweet_data.apply(lambda row : eval(row['Sentiment_Score'], row['Sentiment_Magnitude']), axis=1)
-   
+    tweet_data['Marker Color'] = tweet_data.apply(lambda row : mkr(row['Interpretation']), axis=1)
   
     visualize(tweet_data, covid_data)
 
