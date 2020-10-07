@@ -170,21 +170,18 @@ def main():
       
     # Search Parameters
     query = 'from:{}'.format(acct.get())
-    max_tweets = 500
+    max_tweets = 3000
     result_type = 'recent'
     lang = 'en'
     tweet_mode = 'extended'
-    since_id = '2020-01-22'     # Earliest confirmed COVID-19 case in US
-    counter = 0
       
     # ID from query search
     sep = ':'
     handle = query.split(sep, 1)[-1]
-
+    
     # Process Twitter Data
-    for status in tweepy.Cursor(api.search, q=query, count=max_tweets, lang=lang, since_id=since_id, result_type=result_type, tweet_mode=tweet_mode).items():
+    for status in tweepy.Cursor(api.search, q=query, count=max_tweets, lang=lang, result_type=result_type, tweet_mode=tweet_mode).items(max_tweets):
         tweet = preprocess_tweet(status)
-        counter += 1
         if any(keyword in tweet for keyword in ('COVID', 'covid', 'China virus', 'coronavirus')):
             
           # Sentiment analysis
@@ -201,11 +198,7 @@ def main():
             'Sentiment_Score':[sentiment.score],
             'Sentiment_Magnitude':[sentiment.magnitude]})
           tweet_data = tweet_data.append(df, ignore_index=True)
-        
-        # Emergency Brake
-        if counter == max_tweets:
-         break
-     
+    
     tweet_data['Date'] = pd.to_datetime(tweet_data['Date'], format='%Y-%m-%d %H:%M:%S')
     tweet_data['Interpretation'] = tweet_data.apply(lambda row : eval(row['Sentiment_Score'], row['Sentiment_Magnitude']), axis=1)
     tweet_data['Marker Color'] = tweet_data.apply(lambda row : mkr(row['Interpretation']), axis=1)
