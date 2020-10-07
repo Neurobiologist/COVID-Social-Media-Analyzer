@@ -173,7 +173,6 @@ def main():
     result_type = 'recent'
     lang = 'en'
     tweet_mode = 'extended'
-    since_id = '2020-01-22'     # Earliest confirmed COVID-19 case in US
     counter = 0
       
     # ID from query search
@@ -181,7 +180,7 @@ def main():
     handle = query.split(sep, 1)[-1]
 
     # Process Twitter Data
-    for status in tweepy.Cursor(api.search, q=query, count=max_tweets, lang=lang, since_id=since_id, result_type=result_type, tweet_mode=tweet_mode).items(max_tweets):
+    for status in tweepy.Cursor(api.search, q=query, count=max_tweets, lang=lang, result_type=result_type, tweet_mode=tweet_mode).items(max_tweets):
         tweet = preprocess_tweet(status)
         counter += 1
         if any(keyword in tweet for keyword in ('COVID', 'covid', 'China virus', 'coronavirus')):
