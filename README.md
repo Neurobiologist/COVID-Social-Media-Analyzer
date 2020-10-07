@@ -84,6 +84,7 @@ This software uses the Tweepy API, Google NLP API, and COVID19Py API to perform 
 Thoughts:
 * Unique considerations when troubleshooting: Wasn't retrieving many results when I tried to curate a collection of tweets from President Trump regarding COVID-19. I later realized that this was because I failed to include the term 'China virus' in my search query.
 * Python datetime format convlicts with matplotlib's handling of plot axes (See https://www.earthdatascience.org/courses/use-data-open-source-python/use-time-series-data-in-python/date-time-types-in-pandas-python/)
+* Adding matplotlib plots to tkinter gui is non-trivial [[15]](#15}
 
 <a name="Next-Steps"></a>
 ## Next Steps
@@ -127,3 +128,5 @@ Now that I have a functioning proof-of-concept for this idea, I'd like to make a
 <a id="13">[13]</a> https://cloud.google.com/natural-language
 
 <a id="14">[14]</a> https://cloud.google.com/natural-language/docs/reference/rest
+
+<a id="15">[15]</a> https://pythonprogramming.net/how-to-embed-matplotlib-graph-tkinter-gui/
