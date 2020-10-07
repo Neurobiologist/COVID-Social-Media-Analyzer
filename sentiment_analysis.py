@@ -170,7 +170,7 @@ def main():
       
     # Search Parameters
     query = 'from:{}'.format(acct.get())
-    max_tweets = 50
+    max_tweets = 500
     result_type = 'recent'
     lang = 'en'
     tweet_mode = 'extended'
@@ -185,7 +185,7 @@ def main():
     for status in tweepy.Cursor(api.search, q=query, count=max_tweets, lang=lang, since_id=since_id, result_type=result_type, tweet_mode=tweet_mode).items():
         tweet = preprocess_tweet(status)
         counter += 1
-        if any(keyword in tweet for keyword in ('COVID', 'covid', 'China virus')):
+        if any(keyword in tweet for keyword in ('COVID', 'covid', 'China virus', 'coronavirus')):
             
           # Sentiment analysis
           sentiment = sentiment_analysis(tweet)
