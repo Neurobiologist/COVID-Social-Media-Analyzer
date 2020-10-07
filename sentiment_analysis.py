@@ -103,62 +103,54 @@ def tweet_polarity(tweet_data):
     plt.show()
     
 def covid_plot(tweet_data, covid_data):
-    # Create plot of COVID-19 data
-#    fig = plt.plot(covid_data['Date'], covid_data['Confirmed Cases'])
-#    plt.xticks(rotation=45)
-#    plt.xlabel('Date')
-#    plt.ylabel('Confimed Cases of COVID-19')
-#    plt.title('Cases of COVID-19 in the United States')
-    
+    # Create plot of COVID-19 data   
     fig, ax = plt.subplots(2, 1, sharex=True, figsize=(20, 10))
     ax[0].plot(covid_data['Date'], covid_data['Confirmed Cases'])
     ax[0].set_title('Cases of COVID-19 in the United States')
     ax[0].set_ylabel('Confirmed Cases of COVID-19')
     
+    # Create plot of Twitter Sentiment and Magnitude Data
     for x, y, s, c, m in zip(tweet_data['Date'].to_list(), tweet_data['Sentiment_Magnitude'].to_list(), 100*np.ones(len(tweet_data['Marker Color'].to_list())), tweet_data['Marker Color'].to_list(), tweet_data['Interpretation'].to_list()):
         ax[1].scatter(x, y, s=s, c=c, marker=m) 
-    
-   # ax[1].scatter(tweet_data['Date'].to_list(), tweet_data['Sentiment_Magnitude'].to_list(), marker=tweet_data['Interpretation'].to_list())
     ax[1].set_title('COVID-19 Tweet Sentiment')
     ax[1].set_ylabel('Sentiment Magnitude')
     ax[1].tick_params(axis='x', rotation=45)
     
+    # Format plots
     plt.tight_layout() 
     plt.xlabel('Date')
-    
-   # plt.scatter(tweet_data['Date'], tweet_data['Sentiment_Score'], marker=tweet_data['Interpretation'])
-
     plt.show()
     
     
 def visualize(tweet_data, covid_data):
     tweet_polarity(tweet_data)    # Overview of Tweet Data
     covid_plot(tweet_data, covid_data)
-
+    
+def select_fn(acct):
+    print(acct.get())
 
 def main():
-    # Dropdown menu
+    # Dropdown Menu for Twitter Account Selection
     # Create window 
     window = tk.Tk() 
     window.title('Select Twitter Account to Analyze') 
     window.geometry('250x200') 
         
-    # label 
+    # Instructions 
     ttk.Label(window, text = "Select Twitter Account to Analyze:", 
               font = ("Times New Roman", 10)).grid(column = 0, 
               row = 5, padx = 10, pady = 25) 
       
-    # Combobox creation 
-    n = tk.StringVar() 
-    n.set('CDCgov')
-    selection = ttk.Combobox(window, width = 27, textvariable = n) 
+    # Create Combobox 
+    acct = tk.StringVar() 
+    selection = ttk.Combobox(window, width = 27, textvariable = acct, state='readonly') 
     
-    # Dropdown list
+    # Dropdown Options
     selection['values'] = ('realDonaldTrump','CDCgov','JoeBiden','CDCDirector')
-    
     selection.grid(column=0, row=6)
-    selection.current()
-    selection = selection.get()
+    selection.bind('<<ComboboxSelected>>',select_fn(acct))
+    selection.current(0)
+    
     
     button = tk.Button(window, text = "Analyze", command = window.destroy)
     button.grid(column=0,row=8)
@@ -175,13 +167,9 @@ def main():
 
     # Create dataframe
     tweet_data = pd.DataFrame()
-    
-    # Twitter Handles of Interest
-    realDonaldTrump = '25073877'
-    CDCgov = '146569971'
       
     # Search Parameters
-    query = 'from:{}'.format(selection)
+    query = 'from:{}'.format(acct.get())
     max_tweets = 50
     result_type = 'recent'
     lang = 'en'
@@ -193,10 +181,12 @@ def main():
     sep = ':'
     handle = query.split(sep, 1)[-1]
 
-    for status in tweepy.Cursor(api.search, q=query, count=max_tweets, lang=lang, result_type=result_type, tweet_mode=tweet_mode).items():
+    # Process Twitter Data
+    for status in tweepy.Cursor(api.search, q=query, count=max_tweets, lang=lang, since_id=since_id, result_type=result_type, tweet_mode=tweet_mode).items():
         tweet = preprocess_tweet(status)
         counter += 1
         if any(keyword in tweet for keyword in ('COVID', 'covid', 'China virus')):
+            
           # Sentiment analysis
           sentiment = sentiment_analysis(tweet)
           
@@ -211,6 +201,8 @@ def main():
             'Sentiment_Score':[sentiment.score],
             'Sentiment_Magnitude':[sentiment.magnitude]})
           tweet_data = tweet_data.append(df, ignore_index=True)
+        
+        # Emergency Brake
         if counter == max_tweets:
          break
      
