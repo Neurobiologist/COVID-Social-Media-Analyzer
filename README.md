@@ -73,18 +73,30 @@ As an epidemiologist, I aim to understand the relationship between COVID-19 infe
 
 As a public health official, I need objective data at my disposal to provide testimony at legislative hearings to advocate for increased funding and resources to public health groups; this is especially vital to confront the challenges associated with the COVID-19 pandemic.
 
-As the Director of the Division of Public Affairs at the U.S. Center for Disease Control and Prevention, my goal is to ensure that public CDC messaging remains strictly informative and neutral in tone to reach the widest possible audience and influence the public health of the nation.
+As the Director of the Division of Public Affairs at the U.S. Center for Disease Control and Prevention, my goal is to ensure that public CDC messaging remains strictly informative and neutral-positive in tone to reach the widest possible audience and influence the public health of the nation.
 
-As a public affairs professional, I aim to organize a grassroots lobbying campaign motivated in part by the impact of the communications of elected officials on the dialogue surrounding COVID-19. 
+As a public affairs professional, I aim to organize a grassroots lobbying campaign motivated in part by the impact of the communications of elected officials on the dialogue surrounding COVID-19, and I'd like to motivate individuals to get involved on the basis of easy-to-interpret graphs and figures. 
 
 <a name="Software-Implementation-Results"></a>
 ## Software Implementation & Results
 This software uses the Tweepy API, Google NLP API, and COVID19Py API to perform sentiment analysis on official tweets from elected officials and federal agencies and provides basic analysis and visualizations correlating sentiment data from COVID-related tweets with confirmed cases of COVID-19 in the United States. This gives us insight into political messaging and public affairs in light of objective data from the pandemic.
 
+To use this app, run the code and follow the instructions on the pop-up window to select a Twitter account of interest. The app will perform sentiment analysis on the selected Twitter account on all tweets pertaining to coronavirus since the beginning of the COVID-19 pandemic. The output is twofold: (1) a histogram of the COVID-19 sentiment score distribution since the beginning of the pandemic; and (2) subplots showing a graph of confirmed COVID-19 cases in the United States over time (based on data from Johns Hopkins University as provided by the COVID19Py API) and a sentiment analysis scatter plot directly compared on the same time axis. For the subplot figure, COVID-19 cases over time are plotted as a continuous line, whereas the scatter plot of sentiments reveal the sentiment itself:
+
+* A blue '+' indicates a 'positive' sentiment
+* A red 'v' indicates a 'negative' sentiment
+
+as well as the associated magnitude (height of the marker).
+
+Because I chose to use Pandas dataframes to store the COVID-19 data and Twitter data, there were many unexpected challenges to overcome. I know Pandas is commonly used in data science applications, so I was motivated to try it out; however, when trying to generate the scatter plot, for instance, I couldn't pull data directly from the dataframe to plot. Instead, the data had to be read in as a list and all zipped together in order to properly plot the data as specified. Fortunately, the dataframes made certain actions easier, like using the apply/lambda structure to easily process data and store it as another column in the dataframe.
+
+The (very basic) GUI is generated using the Tkinter GUI Toolkit [[15]](#15) and based off of an example using the Combobox widget [[16]](#16), which was then heavily modified to suit the purposes of this application. In the future, this UI could be modified to include the entire application on a single window; however, adding Matplotlib plots to the Tkinter GUI is non-trivial [[17]](#17) and I think this project would be better suited to a web app. This would allow for the tool to reach a wider audience, as well as provide a much easier way to produce a more elegant interface. Given the target audience, this would be a very important consideration: our goal is to reach a potentially non-technical audience, so providing an easy-to-use and easy-to-interpret web application would be very important to the success of the venture.
+
+When performing the sentiment analysis, I had some very unique considerations while troubleshooting. Namely, I wasn't receiving many results when I tried to curate a collection of tweets from President Trump regarding COVID-19. I later realized that this was because I failed to include the term 'China virus' in my search query.
+
 Thoughts:
-* Unique considerations when troubleshooting: Wasn't retrieving many results when I tried to curate a collection of tweets from President Trump regarding COVID-19. I later realized that this was because I failed to include the term 'China virus' in my search query.
+* In the future, adding the option to search within a specified date range
 * Python datetime format convlicts with matplotlib's handling of plot axes (See https://www.earthdatascience.org/courses/use-data-open-source-python/use-time-series-data-in-python/date-time-types-in-pandas-python/)
-* Adding matplotlib plots to tkinter gui is non-trivial [[15]](#15}
 
 <a name="Next-Steps"></a>
 ## Next Steps
@@ -129,4 +141,8 @@ Now that I have a functioning proof-of-concept for this idea, I'd like to make a
 
 <a id="14">[14]</a> https://cloud.google.com/natural-language/docs/reference/rest
 
-<a id="15">[15]</a> https://pythonprogramming.net/how-to-embed-matplotlib-graph-tkinter-gui/
+<a id="15">[15]</a> https://docs.python.org/3/library/tkinter.html
+
+<a id="16">[16]</a> https://www.geeksforgeeks.org/combobox-widget-in-tkinter-python/#:~:text=Combobox%20is%20a%20combination%20of,the%20list%20of%20options%20displayed.
+
+<a id="17">[17]</a> https://pythonprogramming.net/how-to-embed-matplotlib-graph-tkinter-gui/
