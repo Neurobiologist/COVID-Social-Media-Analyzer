@@ -101,6 +101,7 @@ def tweet_polarity(tweet_data):
     plt.xlabel('Sentiment Score')
     plt.xlim(-1,1)
     plt.show()
+    plt.savefig('tweet_data.png')
     
 def covid_plot(tweet_data, covid_data):
     # Create plot of COVID-19 data   
@@ -120,6 +121,7 @@ def covid_plot(tweet_data, covid_data):
     plt.tight_layout() 
     plt.xlabel('Date')
     plt.show()
+    plt.savefig('covid_plot.png')
     
     
 def visualize(tweet_data, covid_data):
