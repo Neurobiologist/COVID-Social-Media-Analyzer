@@ -88,6 +88,14 @@ To use this app, run the code and follow the instructions on the pop-up window t
 
 as well as the associated magnitude (height of the marker).
 
+![img1](Images/sentiment_analysis_1.JPG)
+
+![img2](Images/sentiment_analysis_2.JPG)
+
+![img3](Images/sentiment_analysis_3.JPG)
+
+![img4](Images/sentiment_analysis_4.JPG)
+
 Because I chose to use Pandas dataframes to store the COVID-19 data and Twitter data, there were many unexpected challenges to overcome. I know Pandas is commonly used in data science applications, so I was motivated to try it out; however, when trying to generate the scatter plot, for instance, I couldn't pull data directly from the dataframe to plot. Instead, the data had to be read in as a list and all zipped together in order to properly plot the data as specified. Fortunately, the dataframes made certain actions easier, like using the apply/lambda structure to easily process data and store it as another column in the dataframe.
 
 Another challenge I faced was in the plotting of the dates from the Pandas dataframe in Matplotlib. As it turns out, the Python <code>datetime</code> format convlicts with matplotlib's handling of plot axes [[16]](#16), so additional formatting was necessary to get the time axis to plot correctly on the subplots.
