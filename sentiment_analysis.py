@@ -46,7 +46,7 @@ api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 # Access the Google NLP API
 client = language.LanguageServiceClient()
 # Access the COVID19Py API
-covid = COVID19Py.COVID19(url='https://covid19-api.kamaropoulos.com')
+covid = COVID19Py.COVID19(url='https://covid19-api.kamaropoulos.com')   # Mirror
 
 def preprocess_tweet(status):
   # Return full text of tweet
