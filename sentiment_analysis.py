@@ -111,22 +111,28 @@ def tweet_polarity(tweet_data):
 
 def covid_plot(tweet_data, covid_data):
     ''' Create plot of COVID-19 data '''
-    _, ax = plt.subplots(2, 1, sharex=True, figsize=(20, 10))
-    ax[0].plot(covid_data['Date'], covid_data['Confirmed Cases'])
-    ax[0].set_title('Cases of COVID-19 in the United States')
-    ax[0].set_ylabel('Confirmed Cases of COVID-19')
+    _, ax_plot = plt.subplots(2, 1, sharex=True, figsize=(20, 10))
+    ax_plot[0].plot(covid_data['Date'], covid_data['Confirmed Cases'])
+    ax_plot[0].set_title('Cases of COVID-19 in the United States')
+    ax_plot[0].set_ylabel('Confirmed Cases of COVID-19')
 
     # Create plot of Twitter Sentiment and Magnitude Data
-    for x, y, s, c, m in zip(tweet_data['Date'].to_list(),
-                             tweet_data['Sentiment_Magnitude'].to_list(),
-                             100 * np.ones(len(
-                                 tweet_data['Marker Color'].to_list())),
-                             tweet_data['Marker Color'].to_list(),
-                             tweet_data['Interpretation'].to_list()):
-        ax[1].scatter(x, y, s=s, c=c, marker=m)
-    ax[1].set_title('COVID-19 Tweet Sentiment')
-    ax[1].set_ylabel('Sentiment Magnitude')
-    ax[1].tick_params(axis='x', rotation=45)
+    for x_idx, y_idx, sent_idx, color_idx, marker_idx in zip(
+            tweet_data['Date'].to_list(),
+            tweet_data['Sentiment_Magnitude'].to_list(),
+            100 * np.ones(len(
+                tweet_data['Marker Color'].to_list())),
+            tweet_data['Marker Color'].to_list(),
+            tweet_data['Interpretation'].to_list()):
+        ax_plot[1].scatter(
+            x_idx,
+            y_idx,
+            s=sent_idx,
+            c=color_idx,
+            marker=marker_idx)
+    ax_plot[1].set_title('COVID-19 Tweet Sentiment')
+    ax_plot[1].set_ylabel('Sentiment Magnitude')
+    ax_plot[1].tick_params(axis='x', rotation=45)
 
     # Format plots
     plt.tight_layout()
@@ -220,12 +226,12 @@ def main():
                 date_time_str, '%Y-%m-%d %H:%M:%S')
 
             # Store values
-            df = pd.DataFrame({'Date': [date_time],
-                               'ID': handle,
-                               'Tweet': tweet,
-                               'Sentiment_Score': [sentiment.score],
-                               'Sentiment_Magnitude': [sentiment.magnitude]})
-            tweet_data = tweet_data.append(df, ignore_index=True)
+            pd_df = pd.DataFrame({'Date': [date_time],
+                                  'ID': handle,
+                                  'Tweet': tweet,
+                                  'Sentiment_Score': [sentiment.score],
+                                  'Sentiment_Magnitude': [sentiment.magnitude]})
+            tweet_data = tweet_data.append(pd_df, ignore_index=True)
 
     tweet_data['Date'] = pd.to_datetime(
         tweet_data['Date'], format='%Y-%m-%d %H:%M:%S')
