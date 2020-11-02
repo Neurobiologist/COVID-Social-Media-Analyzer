@@ -119,7 +119,7 @@ def covid_plot(tweet_data, covid_data):
     # Create plot of Twitter Sentiment and Magnitude Data
     for x_idx, y_idx, sent_idx, color_idx, marker_idx in zip(
             tweet_data['Date'].to_list(),
-            tweet_data['Sentiment_Magnitude'].to_list(),
+            tweet_data['Sentiment_Mag'].to_list(),
             100 * np.ones(len(
                 tweet_data['Marker Color'].to_list())),
             tweet_data['Marker Color'].to_list(),
@@ -230,7 +230,7 @@ def main():
                                   'ID': handle,
                                   'Tweet': tweet,
                                   'Sentiment_Score': [sentiment.score],
-                                  'Sentiment_Magnitude': [sentiment.magnitude]})
+                                  'Sentiment_Mag': [sentiment.magnitude]})
             tweet_data = tweet_data.append(pd_df, ignore_index=True)
 
     tweet_data['Date'] = pd.to_datetime(
