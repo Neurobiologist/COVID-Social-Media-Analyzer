@@ -1,10 +1,13 @@
 name: Pylint
 
-on: [push]
+on:
+  push:
+    branches: 
+      - master
 
 jobs:
-  build:
-
+  test:
+    name: Unit Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -18,5 +21,4 @@ jobs:
         python -m pip install --upgrade pip
         pip install pylint
     - name: Analysing the code with pylint
-      run: |
-        pylint `ls -R|grep .py$|xargs`
+      run: pylint `ls -R|grep .py$|xargs`
