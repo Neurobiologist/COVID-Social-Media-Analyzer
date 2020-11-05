@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Nov  4 20:12:35 2020
-
-@author: ece-student
+@author: MeganParsons
 """
 # Import statements
 from __future__ import unicode_literals
@@ -66,7 +64,7 @@ class TestTKinter(unittest.TestCase):
 
 class TestTweepy:
     
-    # Basic | With API Call [Not Recommended] 
+    # With API Call [Not Recommended] 
     # Fetch Twitter API key and access token from environment variables
     API_KEY = os.environ.get("TWITTER_API_KEY")
     API_SECRET = os.environ.get("TWITTER_API_SECRET")
