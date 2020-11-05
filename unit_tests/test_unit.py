@@ -79,12 +79,32 @@ class TestTweepy:
     @AnitaB_org  members at the 2020 Congressional Reception! #SWEAdvocacy'
     test_tweet_url = 'https://bit.ly/3mWsCcw'     
     
+    # Test Tweepy API and ensure that all ID options from dropdown are current
+    # Generic Test
     def test_user_type(self):
         assert type(self.user) is tweepy.models.User
         
     def test_nonexistent_user(self):
         with pytest.raises(tweepy.TweepError):
             self.API.get_user('asjldfkaowgehnaoifnaosiejf')
+            
+    # GUI Dropdown Menu Options Test
+    Trump_ID = API.get_user('realDonaldTrump')
+    CDC_ID = API.get_user('CDCgov')
+    Biden_ID = API.get_user('JoeBiden')
+    CDCDirector_ID = API.get_user('CDCDirector')
+    
+    def test_Trump_ID(self):
+        assert type(self.Trump_ID) is tweepy.models.User
+        
+    def test_CDC_ID(self):
+        assert type(self.CDC_ID) is tweepy.models.User
+    
+    def test_Biden_ID(self):
+        assert type(self.Biden_ID) is tweepy.models.User
+        
+    def test_CDCDirector_ID(self):
+        assert type(self.CDCDirector_ID) is tweepy.models.User
     
     
 
@@ -125,5 +145,13 @@ class TestNLP:
         statements of fact regarding current events.'
         sentiment = sentiment_analysis(neutral_tweet)
         assert sentiment.magnitude == pytest.approx(0)
+        
+    def test_sentiment_analysis_rand_chars(self):
+        random_chars = '@Twitter #COVID #news'
+        sentiment = sentiment_analysis(random_chars)
+        assert sentiment.magnitude == pytest.approx(0)
+        assert sentiment.score == pytest.approx(0)
+        
+        
     
     
