@@ -97,10 +97,22 @@ class TestNLP:
         sentiment = sentiment_analysis(negative_tweet)
         assert sentiment.score == pytest.approx(-0.8)
         
-    def test_sentiment_analysis_mag(self):
+    def test_sentiment_analysis_mag_pos(self):
         negative_tweet = 'COVID-19 is a terrible and devastating illness.'
         sentiment = sentiment_analysis(negative_tweet)
         assert sentiment.magnitude == pytest.approx(0.8)
+        
+    def test_sentiment_analysis_score_pos(self):
+        positive_tweet = 'Scientists are optimistic about the potential for \
+        a COVID-19 vaccine soon.'
+        sentiment = sentiment_analysis(positive_tweet)
+        assert sentiment.score == pytest.approx(0.3)
+        
+    def test_sentiment_analysis_mag_neut_pos(self):
+        positive_tweet = 'Scientists are optimistic about the potential for \
+        a COVID-19 vaccine soon.'
+        sentiment = sentiment_analysis(positive_tweet)
+        assert sentiment.magnitude == pytest.approx(0.3)    
     
     
     
