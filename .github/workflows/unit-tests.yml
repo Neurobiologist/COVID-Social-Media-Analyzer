@@ -22,7 +22,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         
     - name: Decode Base64 Credentials
-      run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | base64 --decode > >> $GITHUB_ENV
+      run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | base64 --decode >> $GITHUB_ENV
 
     - name: Test with pytest
       run: |
