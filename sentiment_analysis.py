@@ -84,7 +84,7 @@ def evaluate(score):
     ''' Sentiment analysis interpretation '''
     if score > 0.2:
         return '+'
-    if -0.2 < score < 0.2:
+    if -0.2 <= score <= 0.2:
         return ' '
     return 'v'
 
