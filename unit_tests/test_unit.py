@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-@author: MeganParsons
+@author: MeganParsons 
 """
 # Import statements
 from __future__ import unicode_literals
