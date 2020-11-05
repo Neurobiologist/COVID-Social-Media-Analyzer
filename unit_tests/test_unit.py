@@ -71,7 +71,7 @@ class TestTweepy:
     
     # Test values
     test_id_num = 822215347419770882; #MeganMParsons
-    test_ids = ids = ['MeganMParsons','SWE_grad','asjldfkaowgehnaoifnaosiejf']
+    test_ids = ['MeganMParsons','SWE_grad','asjldfkaowgehnaoifnaosiejf']
     
     test_tweet = 'Test tweet'
     test_tweet_complex = 'Stronger together! @swetalk & \
@@ -82,7 +82,11 @@ class TestTweepy:
     user = api.get_user(test_id_num)
     
     def test_user_type(self):
-        assert type(self.user) is tweepy.models.User 
+        assert type(self.user) is tweepy.models.User
+        
+    def test_nonexistent_user(self):
+        with pytest.raises(tweepy.TweepError):
+            self.api.get_user('asjldfkaowgehnaoifnaosiejf')
     
     
     
