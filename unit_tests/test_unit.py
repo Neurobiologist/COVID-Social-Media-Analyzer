@@ -17,7 +17,8 @@ from tkinter import ttk
 import tweepy
 import os
 from google.cloud import language
-
+from unittest.mock import patch
+from io import StringIO 
 
 class TestUnit:
     
@@ -47,21 +48,17 @@ class TestUnit:
 class TestTKinter(unittest.TestCase):
         
     def setUp(self):
-        acct = tk.StringVar()
-        self.app = ttk.Combobox(textvariable=self.acct)
-        self.app['values'] = ('realDonaldTrump', 'CDCgov',
-                           'JoeBiden', 'CDCDirector')
-        self.app.bind('<<ComboboxSelected>>', select_fn(acct))
-        self.app.current(0)
-        app.mainloop()
+        self.app = ttk.Combobox()
+        self.app.bind('<<ComboboxSelected>>', 'realDonaldTrump')
 
     def test_dropdown(self):
        # Need to debug. Unit tests for Tk are particularly tricky.
        acct = tk.StringVar()
-       acct.set('realDonaldTrump')
-       assert select_fn(acct) == 'realDonaldTrump'
+       acct.set('realDonaldTrump');
+       with patch('sys.stdout', new = StringIO()) as mock_stdout: 
+           select_fn(acct)
+       assert mock_stdout.getvalue().rstrip() == 'realDonaldTrump'
        
-   
     def tearDown(self):
         self.app.destroy()
 
