@@ -7,6 +7,7 @@ Created on Wed Nov  4 20:12:35 2020
 """
 # Import statements
 import pytest
+from sentiment_analysis.py import *
 
 class TestUnit:
     
