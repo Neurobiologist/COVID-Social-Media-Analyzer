@@ -6,6 +6,7 @@ Created on Wed Nov  4 20:12:35 2020
 @author: ece-student
 """
 # Import statements
+from __future__ import unicode_literals
 import pytest
 import unittest
 from sentiment_analysis import evaluate
@@ -19,6 +20,7 @@ import os
 from google.cloud import language
 from unittest.mock import patch
 from io import StringIO 
+
 
 class TestUnit:
     
