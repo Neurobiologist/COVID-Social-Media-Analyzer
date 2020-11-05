@@ -22,7 +22,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         
     - name: Decode Base64 Credentials
-      run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | base64 --decode >> $GITHUB_ENV
+      run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | base64 --decode >> cred.json
 
     - name: Test with pytest
       run: |
@@ -32,4 +32,4 @@ jobs:
         API_SECRET: ${{ secrets.TWITTER_API_SECRET }} 
         ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }} 
         ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }} 
-        #GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}  
+        GOOGLE_APPLICATION_CREDENTIALS: cred.json
