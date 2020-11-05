@@ -92,7 +92,7 @@ def mkr(interp):
     ''' Assign marker based on interpretation '''
     if interp == '+':
         return 'b'
-    if interp == 'o':
+    if interp == ' ':
         return 'k'
     return 'r'
 
