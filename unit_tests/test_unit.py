@@ -5,6 +5,10 @@ Created on Wed Nov  4 20:12:35 2020
 
 @author: ece-student
 """
+# Import statements
+import pytest
 
-def test_evaluate():
-    assert evaluate(0.5) == '+'
+class TestUnit:
+    
+    def test_evaluate(self):
+        assert evaluate(0.5) == '+'
