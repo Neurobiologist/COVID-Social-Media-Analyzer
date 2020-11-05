@@ -17,7 +17,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 # Import Google Client Library and Instantiate a Client
 from google.cloud import language
-from google.cloud.language import enums
 # Import Tweepy
 import tweepy
 # Import COVID-19 Data API
@@ -68,7 +67,7 @@ def sentiment_analysis(tweet):
     ''' Sentiment analysis on input '''
     document = language.types.Document(
         content=tweet,
-        type=enums.Document.Type.PLAIN_TEXT)
+        type='PLAIN_TEXT')
 
     response = CLIENT.analyze_sentiment(
         document=document,
