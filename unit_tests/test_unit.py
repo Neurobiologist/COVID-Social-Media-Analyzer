@@ -12,6 +12,9 @@ from sentiment_analysis import evaluate
 from sentiment_analysis import mkr
 import tkinter as tk
 from tkinter import ttk
+import tweepy
+import os
+
 
 class TestUnit:
     
@@ -45,12 +48,45 @@ class TestTKinter(unittest.TestCase):
 
     def tearDown(self):
         self.app.destroy()
-        
-    #def 
 
-    #def test_button(self):
-       # self.app.children['Analyze'].invoke()
+    def test_button(self):
+       # Need to debug. Unit tests for Tk are particularly tricky.
+       pass
+
+class TestTweepy:
+    
+    # Basic | With API Call [Not Recommended] 
+    # Fetch Twitter API key and access token from environment variables
+    api_key = os.environ.get("TWITTER_API_KEY")
+    api_secret = os.environ.get("TWITTER_API_SECRET")
+    access_token = os.environ.get("TWITTER_ACCESS_TOKEN")
+    access_token_secret = os.environ.get("TWITTER_ACCESS_TOKEN_SECRET")
+    
+    # Authentication
+    auth = tweepy.OAuthHandler(api_key, api_secret)
+    auth.set_access_token(access_token, access_token_secret)
+    
+    # Access the API
+    api = tweepy.API(auth, wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
+    
+    # Test values
+    test_id_num = 822215347419770882; #MeganMParsons
+    test_ids = ids = ['MeganMParsons','SWE_grad','asjldfkaowgehnaoifnaosiejf']
+    
+    test_tweet = 'Test tweet'
+    test_tweet_complex = 'Stronger together! @swetalk & \
+    @AnitaB_org  members at the 2020 Congressional Reception! #SWEAdvocacy'
+    test_tweet_url = 'https://bit.ly/3mWsCcw'
+    
+    #@patch.object(tweepy.API, 'get_user', return_value=twitter_data())
+    user = api.get_user(test_id_num)
+    
+    def test_user_type(self):
+        assert type(self.user) is tweepy.models.User 
     
     
+    
+    
+    # Advanced
         
     
