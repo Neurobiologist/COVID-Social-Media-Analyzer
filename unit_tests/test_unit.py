@@ -11,6 +11,7 @@ import unittest
 from sentiment_analysis import evaluate
 from sentiment_analysis import mkr
 from sentiment_analysis import sentiment_analysis
+from sentiment_analysis import select_fn
 import tkinter as tk
 from tkinter import ttk
 import tweepy
@@ -44,16 +45,27 @@ class TestUnit:
         assert mkr('v') == 'r'
         
 class TestTKinter(unittest.TestCase):
-    
+        
     def setUp(self):
-        self.app = ttk.Combobox()
+        acct = tk.StringVar()
+        self.app = ttk.Combobox(textvariable=self.acct)
+        self.app['values'] = ('realDonaldTrump', 'CDCgov',
+                           'JoeBiden', 'CDCDirector')
+        self.app.bind('<<ComboboxSelected>>', select_fn(acct))
+        self.app.current(0)
+        app.mainloop()
 
+    def test_dropdown(self):
+       # Need to debug. Unit tests for Tk are particularly tricky.
+       acct = tk.StringVar()
+       acct.set('realDonaldTrump')
+       assert select_fn(acct) == 'realDonaldTrump'
+       
+   
     def tearDown(self):
         self.app.destroy()
 
-    def test_button(self):
-       # Need to debug. Unit tests for Tk are particularly tricky.
-       pass
+
 
 class TestTweepy:
     
@@ -69,7 +81,8 @@ class TestTweepy:
     AUTH.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
     
     # Access the API
-    API = tweepy.API(AUTH, wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
+    API = tweepy.API(AUTH, wait_on_rate_limit=True,
+                     wait_on_rate_limit_notify=True)
     
     # Test values
     test_id_num = 822215347419770882; #MeganMParsons
