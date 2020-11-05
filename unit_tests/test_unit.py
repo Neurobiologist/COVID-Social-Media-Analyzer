@@ -51,8 +51,8 @@ class TestTKinter(unittest.TestCase):
         self.app = ttk.Combobox()
         self.app.bind('<<ComboboxSelected>>', 'realDonaldTrump')
 
+    # Test select_fn function using initial value in dropdown menu
     def test_dropdown(self):
-       # Need to debug. Unit tests for Tk are particularly tricky.
        acct = tk.StringVar()
        acct.set('realDonaldTrump');
        with patch('sys.stdout', new = StringIO()) as mock_stdout: 
@@ -61,8 +61,6 @@ class TestTKinter(unittest.TestCase):
        
     def tearDown(self):
         self.app.destroy()
-
-
 
 class TestTweepy:
     
@@ -82,7 +80,7 @@ class TestTweepy:
                      wait_on_rate_limit_notify=True)
     
     # Test values
-    test_id_num = 822215347419770882; #MeganMParsons
+    test_id_num = 822215347419770882; #MeganMParsons / generic existing account
     user = API.get_user(test_id_num)
     test_tweet = 'Test tweet'
     test_tweet_complex = 'Stronger together! @swetalk & \
@@ -90,7 +88,7 @@ class TestTweepy:
     test_tweet_url = 'https://bit.ly/3mWsCcw'     
     
     # Test Tweepy API and ensure that all ID options from dropdown are current
-    # Generic Test
+    # Generic Test of Existing and Non-Existing User
     def test_user_type(self):
         assert type(self.user) is tweepy.models.User
         
@@ -117,7 +115,6 @@ class TestTweepy:
         assert type(self.CDCDirector_ID) is tweepy.models.User
     
     
-
 class TestNLP:
     # Access the Google NLP API
     CLIENT = language.LanguageServiceClient()
