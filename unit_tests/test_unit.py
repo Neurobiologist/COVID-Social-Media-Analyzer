@@ -114,5 +114,16 @@ class TestNLP:
         sentiment = sentiment_analysis(positive_tweet)
         assert sentiment.magnitude == pytest.approx(0.3)    
     
+    def test_sentiment_analysis_score_neut(self):
+        neutral_tweet = 'As scientists, we always strive to issue \
+        statements of fact regarding current events.'
+        sentiment = sentiment_analysis(neutral_tweet)
+        assert sentiment.score == pytest.approx(0)
+        
+    def test_sentiment_analysis_mag_neut(self):
+        neutral_tweet = 'As scientists, we always strive to issue \
+        statements of fact regarding current events.'
+        sentiment = sentiment_analysis(neutral_tweet)
+        assert sentiment.magnitude == pytest.approx(0)
     
     
