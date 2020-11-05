@@ -15,7 +15,7 @@ import pandas as pd
 from pandas.plotting import register_matplotlib_converters
 import matplotlib.pyplot as plt
 import numpy as np
-# Import Google Client Library and Instantiate a Client
+# Import Google Client Library
 from google.cloud import language
 # Import Tweepy
 import tweepy

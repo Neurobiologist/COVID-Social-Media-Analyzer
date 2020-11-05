@@ -10,10 +10,12 @@ import pytest
 import unittest
 from sentiment_analysis import evaluate
 from sentiment_analysis import mkr
+from sentiment_analysis import sentiment_analysis
 import tkinter as tk
 from tkinter import ttk
 import tweepy
 import os
+from google.cloud import language
 
 
 class TestUnit:
@@ -57,40 +59,48 @@ class TestTweepy:
     
     # Basic | With API Call [Not Recommended] 
     # Fetch Twitter API key and access token from environment variables
-    api_key = os.environ.get("TWITTER_API_KEY")
-    api_secret = os.environ.get("TWITTER_API_SECRET")
-    access_token = os.environ.get("TWITTER_ACCESS_TOKEN")
-    access_token_secret = os.environ.get("TWITTER_ACCESS_TOKEN_SECRET")
+    API_KEY = os.environ.get("TWITTER_API_KEY")
+    API_SECRET = os.environ.get("TWITTER_API_SECRET")
+    ACCESS_TOKEN = os.environ.get("TWITTER_ACCESS_TOKEN")
+    ACCESS_TOKEN_SECRET = os.environ.get("TWITTER_ACCESS_TOKEN_SECRET")
     
-    # Authentication
-    auth = tweepy.OAuthHandler(api_key, api_secret)
-    auth.set_access_token(access_token, access_token_secret)
+    # Tweepy Authentication
+    AUTH = tweepy.OAuthHandler(API_KEY, API_SECRET)
+    AUTH.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
     
     # Access the API
-    api = tweepy.API(auth, wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
+    API = tweepy.API(AUTH, wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
     
     # Test values
     test_id_num = 822215347419770882; #MeganMParsons
-    test_ids = ['MeganMParsons','SWE_grad','asjldfkaowgehnaoifnaosiejf']
-    
+    user = API.get_user(test_id_num)
     test_tweet = 'Test tweet'
     test_tweet_complex = 'Stronger together! @swetalk & \
     @AnitaB_org  members at the 2020 Congressional Reception! #SWEAdvocacy'
-    test_tweet_url = 'https://bit.ly/3mWsCcw'
-    
-    #@patch.object(tweepy.API, 'get_user', return_value=twitter_data())
-    user = api.get_user(test_id_num)
+    test_tweet_url = 'https://bit.ly/3mWsCcw'     
     
     def test_user_type(self):
         assert type(self.user) is tweepy.models.User
         
     def test_nonexistent_user(self):
         with pytest.raises(tweepy.TweepError):
-            self.api.get_user('asjldfkaowgehnaoifnaosiejf')
+            self.API.get_user('asjldfkaowgehnaoifnaosiejf')
     
     
+
+class TestNLP:
+    # Access the Google NLP API
+    CLIENT = language.LanguageServiceClient()
     
-    
-    # Advanced
+    def test_sentiment_analysis_score_neg(self):
+        negative_tweet = 'COVID-19 is a terrible and devastating illness.'
+        sentiment = sentiment_analysis(negative_tweet)
+        assert sentiment.score == pytest.approx(-0.8)
         
+    def test_sentiment_analysis_mag(self):
+        negative_tweet = 'COVID-19 is a terrible and devastating illness.'
+        sentiment = sentiment_analysis(negative_tweet)
+        assert sentiment.magnitude == pytest.approx(0.8)
+    
+    
     
