@@ -11,6 +11,8 @@ from sentiment_analysis import evaluate
 from sentiment_analysis import mkr
 from sentiment_analysis import sentiment_analysis
 from sentiment_analysis import select_fn
+from sentiment_analysis import tweet_polarity
+from sentiment_analysis import covid_plot
 import tkinter as tk
 from tkinter import ttk
 import tweepy
@@ -18,6 +20,9 @@ import os
 from google.cloud import language
 from unittest.mock import patch
 from io import StringIO 
+import pandas as pd
+import datetime
+
 
 
 class TestUnit:
@@ -45,11 +50,33 @@ class TestUnit:
     def test_mkr_neg(self):
         assert mkr('v') == 'r'
         
+    def test_tweet_polarity_plot(self):
+        with patch("sentiment_analysis.plt.show") as show_plot:
+            example_tweet_data = [[0,-1],[0,0],[0,1]]
+            example_tweet_df = pd.DataFrame(example_tweet_data, 
+                                            columns=['ID','Sentiment_Score'])
+            tweet_polarity(example_tweet_df)
+            assert show_plot.called
+            
+    def test_covid_plot(self):
+        with patch("sentiment_analysis.plt.show") as show_plot:
+            example_tweet_data = [[0,-1, 1,datetime.datetime(2020,9,5),
+                                   'r','v']]
+            example_tweet_df = pd.DataFrame(example_tweet_data, 
+                                            columns=['ID','Sentiment_Score',
+                                                     'Sentiment_Mag','Date',
+                                                     'Marker Color',
+                                                     'Interpretation'])
+            example_covid_data = [[datetime.datetime(2020,9,5), 100000]]
+            example_covid_df = pd.DataFrame(example_covid_data,
+                                            columns=['Date','Confirmed Cases'])
+            covid_plot(example_tweet_df, example_covid_df)
+            assert show_plot.called
+    
 class TestTKinter(unittest.TestCase):
         
     def setUp(self):
-        self.window = tk.Tk() 
-        self.app = ttk.Combobox(self.window)
+        self.app = ttk.Combobox()
         self.app.bind('<<ComboboxSelected>>', 'realDonaldTrump')
 
     # Test select_fn function using initial value in dropdown menu
