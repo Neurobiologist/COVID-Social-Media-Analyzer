@@ -26,6 +26,8 @@ jobs:
 
     - name: Test with pytest
       run: |
+        disp=:99
+        screen=0
         pytest
       env:
         TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }} 
