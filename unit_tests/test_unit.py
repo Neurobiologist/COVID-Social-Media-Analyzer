@@ -48,8 +48,8 @@ class TestUnit:
 class TestTKinter(unittest.TestCase):
         
     def setUp(self):
-        window = tk.Tk() 
-        self.app = ttk.Combobox(window)
+        self.window = tk.Tk() 
+        self.app = ttk.Combobox(self.window)
         self.app.bind('<<ComboboxSelected>>', 'realDonaldTrump')
 
     # Test select_fn function using initial value in dropdown menu
