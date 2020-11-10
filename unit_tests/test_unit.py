@@ -23,8 +23,6 @@ from sentiment_analysis import select_fn
 from sentiment_analysis import tweet_polarity
 from sentiment_analysis import covid_plot
 
-
-
 class TestUnit:
 
     # Expected Behavior
@@ -73,7 +71,12 @@ class TestUnit:
                     'Date', 'Confirmed Cases'])
             covid_plot(example_tweet_df, example_covid_df)
             assert show_plot.called
-
+            
+    # Unexpected Behavior
+    
+    def test_evaluate_with_nonnumerical_input(self):
+        with pytest.raises(TypeError):
+            evaluate('non-integer')
 
 class TestTKinter(unittest.TestCase):
 
@@ -189,3 +192,5 @@ class TestNLP:
         sentiment = sentiment_analysis(random_chars)
         assert sentiment.magnitude == pytest.approx(0)
         assert sentiment.score == pytest.approx(0)
+        
+    
