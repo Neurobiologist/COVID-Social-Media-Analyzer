@@ -1,5 +1,5 @@
 # EC601-Project02
-The purpose of this assignment is to explore the Twitter API and Google Cloud Natural Language ("NLP") API. I have applied what I've learned to create a _COVID Correlator_ Social Media Analyzer.
+The purpose of this project is to explore the Twitter API and Google Cloud Natural Language ("NLP") API. I have applied what I've learned to create a _COVID Correlator_ Social Media Analyzer.
 
 # Table of Contents
 
