@@ -131,13 +131,13 @@ class TestTweepy:
             self.API.get_user('asjldfkaowgehnaoifnaosiejf')
 
     # GUI Dropdown Menu Options Test
-    Trump_ID = API.get_user('realDonaldTrump')
+    #Trump_ID = API.get_user('realDonaldTrump') ## No longer available
     CDC_ID = API.get_user('CDCgov')
     Biden_ID = API.get_user('JoeBiden')
     CDCDirector_ID = API.get_user('CDCDirector')
 
-    def test_Trump_ID(self):
-        assert isinstance(self.Trump_ID, tweepy.models.User)
+    #def test_Trump_ID(self):
+        #assert isinstance(self.Trump_ID, tweepy.models.User)
 
     def test_CDC_ID(self):
         assert isinstance(self.CDC_ID, tweepy.models.User)
